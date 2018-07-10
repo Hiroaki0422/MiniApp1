@@ -5,5 +5,10 @@ table, td {
 
 table {
 	table-layout: fixed;
-	width: 35%;
+	width: 50%;
+}
+
+tr {
+  height: 12vw; /* Set this to whatever amount forms square cells */
+  text-align: center; 
 }
