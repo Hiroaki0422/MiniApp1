@@ -12,3 +12,8 @@ tr {
   height: 12vw; /* Set this to whatever amount forms square cells */
   text-align: center; 
 }
+
+td {
+	height: 300px;
+	width: 300px;
+}

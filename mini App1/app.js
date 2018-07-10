@@ -1,5 +1,5 @@
 var turnCounter = 1;
-var symbols = ['O', 'X'];
+var symbols = ['DOG', 'CAT'];
 var playersStates = [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]];
 var wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
 var isEnd = false;
@@ -18,6 +18,7 @@ function tdclick(num, e) {
 		if(checkWin(currentPlayer)) {
 			winMessage();
 			isEnd = true;
+			winPicture();
 		} else {
 			turnCounter++;
 			showMessage();
@@ -35,7 +36,8 @@ function clickCell(player, num, e) {
 		return false;
 	}
 	player[num] = 1;
-	e.target.innerText = symbols[turnCounter % 2];
+	//e.target.innerText = symbols[turnCounter % 2];
+	showPicture(num, e.target);
 	return true;
 }
 
@@ -54,7 +56,7 @@ function checkWin(arr) {
 }
 
 function winMessage () {
-	var winMessage = document.getElementsByClassName('win');
+	var winMessage = document.getElementsByClassName('message');
 	winMessage[0].innerText = "Congratulations! Player " + symbols[turnCounter % 2] + " Wins! Click Reset to Play Again!";
 }
 
@@ -68,10 +70,33 @@ function reset() {
 	for (var i = 0; i < 9; i++) {
 		allTds[i].innerHTML = "*";
 	}
-	isEnd = false;
+	if (isEnd) {
+		document.getElementsByClassName('victory')[0].removeChild(document.getElementsByClassName('vicpic')[0]);
+		isEnd = false;
+	}
+	
 }
 
 function draw() {
 	var winMessage = document.getElementsByClassName('win');
 	winMessage[0].innerText = "Draw! Please Click Reset to Play Again!";
+}
+
+function showPicture(num, target) {
+	var image = document.createElement("img");
+	image.alt = turnCounter.toString();
+	image.src = "src/" + turnCounter + '.jpg';
+	image.width = 250;
+	image.height = 250;
+	target.appendChild(image);
+}
+
+function winPicture() {
+	var image = document.createElement("img");
+	image.alt = turnCounter.toString();
+	image.src = "src/w" + (turnCounter % 2) + '.jpg';
+	image.width = 750;
+	image.height = 500;
+	image.className = 'vicpic';
+	document.getElementsByClassName('victory')[0].appendChild(image);
 }
